@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Row from './components/Row'
 import axios from 'axios'
 
 const apiUrl = 'http://localhost:3001'
@@ -29,10 +30,6 @@ function App() {
     .catch(error => {
       alert(error.response ? error.response.data.error.message : error)
     })
-    /* const description = task.trim()
-    if (!description) return
-    setTasks(currentTasks => [...currentTasks, description])
-    setTask('') */
   }
 
   const deleteTask = (deleted) => {
@@ -53,12 +50,9 @@ function App() {
       </form>
       <ul>
         {
-          tasks.map(item => (
-            <li key={item.id}>
-              {item.description}
-              <button className='delete-button' onClick={() => deleteTask(item.id)}>Delete</button>
-            </li>
-        ))
+          tasks.map(task => (
+            <Row task={task} key={task.id} onDelete={deleteTask} />
+          ))
         }
       </ul>
     </div>
