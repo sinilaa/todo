@@ -1,9 +1,15 @@
 import { pool } from '../helper/db.js'
 import { auth } from '../helper/auth.js'
 import { Router } from 'express'
+import { getTasks, createTask, deleteTask } from '../controllers/TaskController.js'
 
 const router = Router()
 
+router.get('/',getTasks)
+router.post('/', auth, createTask)
+router.delete('/:id', auth, deleteTask)
+
+/*
 router.get('/', (req, res, next) => {
     pool.query('SELECT * FROM task', (err, result) => {
         if (err) {
@@ -58,6 +64,6 @@ router.delete('/:id', auth, (req, res, next) => {
             return res.status(200).json({id: id})
         }
     )
-})
+})*/
 
 export default router
